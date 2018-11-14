@@ -11,20 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-Route::get ('/edu/article/index','Edu\ArticleController@index')->name ('edu.article.index');
+//首页
 
-Route::get ('/edu/photo/index','Edu\PhotoController@index')->name ('edu.photo.index');
+Route::get ('/','HomeController@index')->name ('home');
 
-Route::get ('/edu/article/create','Edu\ArticleController@create')->name ('edu.article.create');
 
-Route::get('/edu/article/store','Edu\ArticleController@store')->name ('edu.article.store');
+//登录页面
+Route::get ('/login','UserController@login')->name ('login');
+//注册页面
+Route::get ('/register','UserController@register')->name ('register');
+Route::post ('/register','UserController@store')->name ('register');
 
-Route::get ('/edu/photo/create','Edu\PhotoController@create')->name ('edu.photo.create');
-
-Route::post('/edu/photo/store','Edu\PhotoController@store')->name ('edu.photo.store');
-
-//Route::resource ('/edu');
+//工具
+Route::any ('/code/send','Util\CodeController@send')->name ('code.send');
