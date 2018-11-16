@@ -15,9 +15,12 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/css/theme.min.css">
 
-    <title>Dashkit</title>
+    <title>默书彤图书馆</title>
 </head>
 <body>
+@can('view',auth ()->check ());
+
+@endcan
 
 <!-- TOPNAV
 ================================================== -->
@@ -541,10 +544,10 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="profile-posts.html" class="dropdown-item">{{auth()->user()->name}}</a>
 
-                        @if(auth()->user()->is_admin == 1)
+                       @can('view',auth ()->user ())
                             <a href="{{route ('admin.index')}}" class="dropdown-item">后台</a>
-                        @endif
-                        <hr class="dropdown-divider">
+                        @endcan
+                        {{--<hr class="dropdown-divider">--}}
                         <a href="{{route ('logout')}}" class="dropdown-item">注销</a>
                     </div>
                 @else
@@ -566,17 +569,17 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">
-                        Dashboard
+                        首页
                     </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#!" id="topnavPages" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Pages
+                        文章管理
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="topnavPages">
                         <li class="dropright">
                             <a class="dropdown-item dropdown-toggle" href="#!" id="topnavProfile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Profile
+                                文章标题
                             </a>
                             <div class="dropdown-menu" aria-labelledby="topnavProfile">
                                 <a class="dropdown-item" href="profile-posts.html">
@@ -663,7 +666,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#!" id="topnavAuth" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Auth
+                        查阅文章
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="topnavAuth">
                         <li class="dropright">
@@ -731,7 +734,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#!" id="topnavLayouts" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Layouts
+                        贴吧
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="topnavLayouts">
                         <li>
@@ -769,7 +772,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#!" id="topnavDocumentation" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Docs
+                        关于
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="topnavDocumentation">
                         <li>

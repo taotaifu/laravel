@@ -10,7 +10,7 @@ class LoginController extends Controller
 	{    //用户手机认证
 		$credentials = $request->only('email', 'password');
          //登录成功的时
-		if (\Auth::attempt($credentials)) {
+		if (\Auth::attempt($credentials,$request->remember)) {
 
 			return redirect()->route('home')->with ('success','登录成功');
 		}
