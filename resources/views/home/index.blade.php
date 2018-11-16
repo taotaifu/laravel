@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -72,7 +71,8 @@
 
                                         <!-- Time -->
                                         <p class="small text-muted mb-0">
-                                            <span class="fe fe-clock"></span> <time datetime="2018-05-24">Updated 2hr ago</time>
+                                            <span class="fe fe-clock"></span>
+                                            <time datetime="2018-05-24">Updated 2hr ago</time>
                                         </p>
 
                                     </div>
@@ -97,7 +97,8 @@
 
                                         <!-- Time -->
                                         <p class="small text-muted mb-0">
-                                            <span class="fe fe-clock"></span> <time datetime="2018-05-24">Updated 2hr ago</time>
+                                            <span class="fe fe-clock"></span>
+                                            <time datetime="2018-05-24">Updated 2hr ago</time>
                                         </p>
 
                                     </div>
@@ -123,7 +124,8 @@
 
                                         <!-- Time -->
                                         <p class="small text-muted mb-0">
-                                            <span class="fe fe-clock"></span> <time datetime="2018-05-24">Updated 4hr ago</time>
+                                            <span class="fe fe-clock"></span>
+                                            <time datetime="2018-05-24">Updated 4hr ago</time>
                                         </p>
 
                                     </div>
@@ -150,7 +152,8 @@
 
                                         <!-- Time -->
                                         <p class="small text-muted mb-0">
-                                            <span class="fe fe-clock"></span> <time datetime="2018-05-24">Updated 4hr ago</time>
+                                            <span class="fe fe-clock"></span>
+                                            <time datetime="2018-05-24">Updated 4hr ago</time>
                                         </p>
 
                                     </div>
@@ -177,7 +180,8 @@
 
                                         <!-- Time -->
                                         <p class="small text-muted mb-0">
-                                            <span class="fe fe-clock"></span> <time datetime="2018-05-24">Updated 4hr ago</time>
+                                            <span class="fe fe-clock"></span>
+                                            <time datetime="2018-05-24">Updated 4hr ago</time>
                                         </p>
 
                                     </div>
@@ -358,7 +362,8 @@
 
                                         <!-- Content -->
                                         <div class="small text-muted">
-                                            <strong class="text-body">Adolfo Hess</strong> commented <blockquote class="text-body">“I don’t think this really makes sense to do without approval from Johnathan since he’s the one...” </blockquote>
+                                            <strong class="text-body">Adolfo Hess</strong> commented
+                                            <blockquote class="text-body">“I don’t think this really makes sense to do without approval from Johnathan since he’s the one...”</blockquote>
                                         </div>
 
                                     </div>
@@ -474,7 +479,8 @@
 
                                         <!-- Content -->
                                         <div class="small text-muted">
-                                            <strong class="text-body">Glen Rouse</strong> commented <blockquote class="text-body">“I don’t think this really makes sense to do without approval from Johnathan since he’s the one...” </blockquote>
+                                            <strong class="text-body">Glen Rouse</strong> commented
+                                            <blockquote class="text-body">“I don’t think this really makes sense to do without approval from Johnathan since he’s the one...”</blockquote>
                                         </div>
 
                                     </div>
@@ -526,21 +532,24 @@
 
             <!-- 用户头像 Dropdown -->
             <div class="dropdown">
+            @auth()
+                <!-- Toggle -->
+                    <a href="#" class="avatar avatar-sm avatar-online dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{auth ()->user ()->icon}}" alt="..." class="avatar-img rounded-circle">
+                    </a>
+                    <!-- Menu -->
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="profile-posts.html" class="dropdown-item">{{auth()->user()->name}}</a>
 
-                {{--<!-- Toggle -->--}}
-                {{--<a href="#" class="avatar avatar-sm avatar-online dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-                {{--<img src="{{asset('org/Dashkit-1.1.2/assets')}}/img/avatars/profiles/avatar-1.jpg" alt="..." class="avatar-img rounded-circle">--}}
-                {{--</a>--}}
-
-                {{--<!-- Menu -->--}}
-                {{--<div class="dropdown-menu dropdown-menu-right">--}}
-                {{--<a href="profile-posts.html" class="dropdown-item">Profile</a>--}}
-                {{--<a href="settings.html" class="dropdown-item">Settings</a>--}}
-                {{--<hr class="dropdown-divider">--}}
-                {{--<a href="sign-in.html" class="dropdown-item">Logout</a>--}}
-                {{--</div>--}}
-                <a href="" class="btn btn-white btn-sm">登录</a>
-                <a href="{{route('register')}}" class="btn btn-white btn-sm">注册</a>
+                        @if(auth()->user()->is_admin == 1)
+                            <a href="{{route ('admin.index')}}" class="dropdown-item">后台</a>
+                        @endif
+                        <hr class="dropdown-divider">
+                        <a href="{{route ('logout')}}" class="dropdown-item">注销</a>
+                    </div>
+                @else
+                    <a href="{{route('login')}}" class="btn btn-white btn-sm">登录</a><a href="{{route('register')}}" class="btn btn-white btn-sm">注册</a>
+                @endauth
             </div>
 
         </div>

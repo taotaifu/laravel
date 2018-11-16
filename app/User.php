@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','email_verified_at',
     ];
 
     /**
@@ -27,4 +27,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //头像模板库
+
+	public function getIconAttribute ( $key )
+	{
+		return $key?:asset ('org/images/dog1.jpg');
+	}
 }

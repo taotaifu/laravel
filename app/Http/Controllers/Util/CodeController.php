@@ -21,6 +21,7 @@ class CodeController extends Controller
 	   $user->notify(new RegisterNotify($code));
 	   //存到session中
        session()->put('code',$code);
+       //$code=$code,
        //返回数据
         return ['code'=>1,'message'=>'验证码发送成功'];
 

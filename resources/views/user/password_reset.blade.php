@@ -5,81 +5,101 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
+
     <!-- Libs CSS -->
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/fonts/feather/feather.min.css">
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/libs/highlight/styles/vs2015.min.css">
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/libs/quill/dist/quill.core.css">
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/libs/flatpickr/dist/flatpickr.min.css">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/css/theme.min.css">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>登录</title>
+
+    <title>重置密码</title>
 </head>
 <body class="d-flex align-items-center bg-white border-top-2 border-primary">
 
 <!-- CONTENT
 ================================================== -->
-<div class="container-fluid">
-    <div class="row align-items-center justify-content-center">
-        <div class="col-12 col-md-5 col-lg-6 col-xl-4 px-lg-6 my-5">
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-12 col-md-6 offset-xl-2 offset-md-1 order-md-2 mb-5 mb-md-0">
+
+            <!-- Image -->
+            <div class="text-center">
+                <img src="{{asset('org/Dashkit-1.1.2/assets')}}/img/illustrations/coworking.svg" alt="..." class="img-fluid">
+            </div>
+
+        </div>
+        <div class="col-12 col-md-5 col-xl-4 order-md-1 my-5">
 
             <!-- Heading -->
             <h1 class="display-4 text-center mb-3">
-                登录
+                重置密码
             </h1>
 
-            <!-- Subheading -->
-            <p class="text-muted text-center mb-5">
-                登录帐号社区参与交流与学习
-            </p>
 
             <!-- Form -->
-            <form method="post" action="{{route('login')}}">
-                @csrf
+            <form method="post" action="{{route('password_reset')}}">
+            @csrf
+            <!-- Email address -->
                 <div class="form-group">
                     <!-- Label -->
-                    <label>
-                        邮箱
-                    </label>
+                    <label>邮箱</label>
                     <!-- Input -->
-                    <input type="email" value="729589198@qq.com" name="email" class="form-control" placeholder="请输入邮箱">
+                    <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="name@address.com">
                 </div>
                 <div class="form-group">
                     <!-- Label -->
                     <label>
-                        密码
+                        新密码
                     </label>
                     <!-- Input -->
                     <input type="password" name="password" class="form-control" placeholder="请输入密码">
                 </div>
-
+                <div class="form-group">
+                    <!-- Label -->
+                    <label>
+                        确认密码
+                    </label>
+                    <!-- Input -->
+                    <input type="password" name="password_confirmation" class="form-control" placeholder="请输入确认密码">
+                </div>
+                <div class="form-group">
+                    <!-- Label -->
+                    <label>
+                        验证码
+                    </label>
+                    <!-- Input -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="请输入验证码" name="code" value="" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="bt">发送验证码</button>
+                        </div>
+                    </div>
+                </div>
                 <!-- Submit -->
                 <button class="btn btn-lg btn-block btn-primary mb-3">
-                    登录
+                    提交
                 </button>
 
                 <!-- Link -->
                 <div class="text-center">
                     <small class="text-muted text-center">
-                        还没账号 ? <a href="{{route('register')}}">注册</a>
-                        <a href="{{route('password_reset')}}">重置密码</a>
-                        <a href="{{route('home')}}">返回首页</a>
+                        已有账号 ? <a href="{{route('login')}}">去登陆</a>.
+                        <a href="{{route('home')}}">返回首页</a>.
                     </small>
                 </div>
 
             </form>
 
         </div>
-        <div class="col-12 col-md-7 col-lg-6 col-xl-8 d-none d-lg-block">
-
-            <!-- Image -->
-            <div class="bg-cover vh-100 mt--1 mr--3" style="background-image: url({{asset('org/Dashkit-1.1.2/assets')}}/img/covers/auth-side-cover.jpg);"></div>
-
-        </div>
     </div> <!-- / .row -->
-</div>
+</div> <!-- / .container -->
+
+<!-- JAVASCRIPT
+================================================== -->
 @include('layouts.hdjs')
 @include('layouts.message')
 <script>
