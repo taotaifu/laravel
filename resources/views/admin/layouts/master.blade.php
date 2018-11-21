@@ -291,7 +291,7 @@
                     <!-- Toggle -->
                     <a href="#!" id="sidebarIconCopy" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar avatar-sm avatar-online">
-                            <img src="{{auth()->user()->icon}}" class="avatar-img rounded-circle" alt="...">
+                            <img src="{{asset ('org/images/dog1.jpg')}}" class="avatar-img rounded-circle" alt="...">
                         </div>
                     </a>
                     <!-- Menu -->

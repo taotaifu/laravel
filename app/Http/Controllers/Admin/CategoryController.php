@@ -15,8 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-    	$categories=Category::all ();
+    	//$categories=Category::all ();
           //dd ($categories);
+		//分页
+		$categories=Category::paginate(2);
         return view ('admin.category.index',compact ('categories'));
     }
 

@@ -37,9 +37,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div> <!-- / .row -->
         <div class="card">
@@ -76,6 +73,7 @@
                 </table>
             </div>
         </div>
+        {{$categories->links()}}
     </div>
 @endsection
 @push('js')
