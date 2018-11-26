@@ -1,22 +1,21 @@
 <?php
 
 namespace App\Models;
-use APP\User;
+
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Comment extends Model
 {
-	 //文章与用户的关联
-	public function user(){
+	protected $casts = [
+		'created_at' => 'datetime:Y-m-d',
+	];
 
-		return $this->belongsTo (User::class,'user_id','id');
-	}
+	//关联用户表
+   public function user(){
 
-	//栏目的关联
-     public function category(){
-
-		return $this->belongsTo (Category::class);
-	 }
+	   return $this->belongsTo(User::class);
+   }
 
 	//定义zan 的多态联系
 

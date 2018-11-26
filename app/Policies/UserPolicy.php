@@ -83,13 +83,19 @@ class UserPolicy
 	}
 
 	public function isMine(User $user,User $model){
-		     //$user  为当前查看文章的作者
-		     //$model 为当前登录的用户
+		    //$user  为当前查看文章的作者
+		    //$model 为当前登录的用户
            //dump ($model);
            //dd ($user);
 		//如果当前查看文章的作者的id 等于 当前登录用户的id 代表着是自己查看自己
 		//可以修改自己的名字 跟密码 头像
 		return $user->id == $model->id;
+
+	}
+
+	public function isNotMine(User $user,User $model){
+
+		return $user->id != $model->id;
 
 	}
 }

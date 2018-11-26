@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/libs/flatpickr/dist/flatpickr.min.css">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/css/theme.min.css">
-
+     @stack('css')
     <title>默书彤</title>
 </head>
 <body>
@@ -550,7 +550,7 @@
                         <a href="{{route('logout')}}" class="dropdown-item">注销登录</a>
                     </div>
                 @else
-                    <a href="{{route('login')}}" class="btn btn-white btn-sm">登录</a>
+                    <a href="{{route('login',['from'=>url()->full()])}}" class="btn btn-white btn-sm">登录</a>
                     <a href="{{route('register')}}" class="btn btn-white btn-sm">注册</a>
                 @endauth
             </div>

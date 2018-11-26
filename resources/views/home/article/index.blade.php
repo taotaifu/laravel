@@ -39,12 +39,16 @@
 
                                 </div>
                                 <div class="col-auto">
-
+                                    @auth()
                                     <!-- Button -->
                                     <a href="{{route('home.article.create')}}" class="btn btn-sm btn-primary">
                                         发表文章
                                     </a>
-
+                                        @else
+                                     <a href="{{route('login',['from'=>url()->full()])}}" class="btn btn-sm btn-primary">
+                                          发表文章
+                                     </a>
+                                     @endauth
                                 </div>
                             </div> <!-- / .row -->
                         </div>

@@ -22,6 +22,11 @@ Route::group(['prefix'=>'member','namespace'=>'Member','as'=>'member.'],function
 
 	//会员中心
 	Route::resource('user','UserController');
+	//定义关注/取消关注
+	Route::get('attention/{user}','UserController@attention')->name('attention');
+	Route::get('myFans/{user}','UserController@myFans')->name('myfans');
+	Route::get('myFollowing/{user}','UserController@myFollowing')->name('myfollowing');
+
 
 });
 
@@ -32,8 +37,12 @@ Route::group(['prefix'=>'home','namespace'=>'Home','as'=>'home.'],function(){
 	Route::get('/','HomeController@index')->name('index');
 	//文章管理
 	Route::resource('article','ArticleController');
-
+	//评论路由
+	Route::resource('comment','CommentController');
+	Route::get ('zan/make','ZanController@make')->name ('zan.make');
 });
+
+
 
 //登录页面
 Route::get ('/login','UserController@login')->name ('login');
@@ -50,11 +59,16 @@ Route::get ('/logout','UserController@logout')->name ('logout');
 Route::get ('/password_reset','UserController@passwordReset')->name ('password_reset');
 Route::post('/password_reset',	'UserController@passwordResetForm')->name ('password_reset');
 
-//工具
-Route::any ('/code/send','Util\CodeController@send')->name ('code.send');
-//Route::any ('/util','Util\CodeController@util')->name ('util');
-////
-//Route::get ('/admin/index','Admin\IndexController@index')->name ('admin.index');
+//工具路由
+
+//工具类
+Route::group(['prefix'=>'util','namespace'=>'Util','as'=>'util.'],function(){
+	//发送验证码
+	Route::any('/code/send','CodeController@send')->name('code.send');
+	//上传
+	Route::any('/upload','UploadController@uploader')->name('upload');
+	Route::any('/filesLists','UploadController@filesLists')->name('filesLists');
+});
 
 //后台群组路由
 Route::group(['middleware' => ['admin.auth'],'prefix'=>'admin','namespace'=>'Admin','as'=>'admin.'],function(){

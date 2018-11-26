@@ -118,7 +118,7 @@
         let option={
             el:'#bt',
             // 后台链接
-            url:'{{route ('code.send')}}',
+            url:'{{route ('util.code.send')}}',
             // 验证码等待的时间10秒
             timeout:10,
             // 表单

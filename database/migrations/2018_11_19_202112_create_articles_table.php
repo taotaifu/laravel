@@ -14,13 +14,17 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
+			$table->engine = 'InnoDB';
             $table->increments('id');
-            $table->unsignedTinyInteger ('user_id')->index ()->default (0)->comment('文章作者');
-            $table->string ('title')->default ('')->comment ('文章标题');
-            //外键约束
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedTinyInteger ('category_id')->index ()->default (0)->comment ('文章栏目id');
-            $table->foreign ('categroy_id')->references('id')->on('categroy')->onDelete('cascade');
+			$table->string ('title')->default ('')->comment ('文章标题');
+            $table->unsignedInteger  ('user_id')->index ()->default (0)->comment('文章作者');//外键约束
+            $table->foreign('user_id')
+				->references('id')->on('users')
+				->onDelete('cascade');
+            $table->unsignedInteger  ('category_id')->index ()->default (0)->comment ('文章栏目id');
+            $table->foreign ('category_id')
+				->references('id')->on('categories')
+				->onDelete('cascade');
             $table->text ('content');
             $table->timestamps();
         });

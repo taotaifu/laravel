@@ -16,18 +16,16 @@
                                 {{$article['title']}}
                             </h2>
                             <p class="text-muted mb-1 text-muted small">
-                                <a href="" class="text-secondary">
+                                <a href="{{route('member.user.show',$article->user)}}" class="text-secondary">
                                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                </a><a href="" class="text-secondary">{{$article->user->name}}</a>
-
+                                </a><a href="{{route('member.user.show',$article->user)}}" class="text-secondary">{{$article->user->name}}</a>
                                 <i class="fa fa-clock-o ml-2" aria-hidden="true"></i>
                                 {{$article->created_at->diffForHumans()}}
 
-                                <a href="" class="text-secondary">
+                                <a href="{{route('home.article.index',['category'=>$article->category->id])}}" class="text-secondary">
                                     <i class="fa fa-folder-o ml-2" aria-hidden="true"></i>
                                     {{$article->category->title}}
                                 </a>
-
                             </p>
                         </div>
                     </div>
@@ -38,7 +36,37 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
+
+                            <div class="text-center">
+                                {{--(判断 登录之后才能看到点赞 )--}}
+                        @auth
+                                    @if($article->zan->where('user_id',auth()->id())->first())
+
+                                <a class="btn btn-white" href="{{route ('home.zan.make',['type'=>'article','id'=>$article['id']])}}">取消点赞</a>
+
+                        @else
+                                <a class="btn btn-white" href="{{route ('home.zan.make',['type'=>'article','id'=>$article['id']])}}">❤点赞</a>
+                        @endif
+
+                    @else
+
+                        <a class="btn btn-white" href="{{route ('login',['from'=>url ()->full()])}}">❤点赞</a>
+
+                    @endauth
+                    <div class="row">
+                        <div class="col-12 mr--3">
+                            <div class="avatar-group d-none d-sm-flex">
+                                @foreach($article->zan as $zan )
+                                    <a href="{{route ('member.user.show'),$zan->user}}" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
+                                        <img src="$zan->user->icon" alt="..." class="avatar-img rounded-circle border border-white">
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                @include('home.layouts.comment')
             </div>
             <div class="col-12 col-xl-3">
                 <div class="card">
@@ -51,16 +79,24 @@
                     </div>
                     <div class="card-block text-center p-5">
                         <div class="avatar avatar-xl">
-                            <a href="">
-                                <img src="{{asset ('org/images/dog1.jpg')}}" alt="..." class="avatar-img rounded-circle">
+                            <a href="{{route('member.user.show',$article->user)}}">
+                                <img src="{{$article->user->icon}}" alt="..." class="avatar-img rounded-circle">
                             </a>
                         </div>
                     </div>
-                    <div class="card-footer text-muted">
-                        <a class="btn btn-white btn-block btn-xs" href="http://www.houdunren.com/member/follow/1">
-                            <i class="fa fa-plus" aria-hidden="true"></i> 关注 TA
-                        </a>
-                    </div>
+                    @auth()
+                        @can('isNotMine',$article->user)
+                            <div class="card-footer text-muted">
+                                <a class="btn btn-white btn-block btn-xs" href="{{route('member.attention',$article->user)}}">
+                                    @if($article->user->fans->contains(auth()->user()))
+                                        取消关注
+                                    @else
+                                        <i class="fa fa-plus" aria-hidden="true"></i> 关注 TA
+                                    @endif
+                                </a>
+                            </div>
+                        @endcan
+                    @endauth
                 </div>
             </div>
         </div>

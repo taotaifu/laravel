@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Member;
 
 use App\Models\Article;
-use App\Models\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,14 +27,20 @@ class UserController extends Controller
         //
     }
 
+    public function __construct () {
 
-    public function show(User $user)
+    	$this->middleware('auth',[
+    		'only'=>'edit','update','attention']);
+	}
+
+    //展示用户详情
+	public function show(User $user)
     {
          $articles=Article::latest()->where('user_id',$user->id)->paginate(5);
         return view ('member.user.show',compact ('user','articles'));
     }
 
-
+    //编辑用户资料
     public function edit(User $user,Request $request)
     {     //调用策略
     	$this->authorize ('isMine',$user);
@@ -44,7 +49,7 @@ class UserController extends Controller
         return view ('member.user.edit_'.$type,compact ('user'));
     }
 
-
+     //更新用户资料 头像 密码 名字
     public function update(Request $request, User $user)
     {
         $data=$request->all ();
@@ -73,8 +78,31 @@ class UserController extends Controller
     }
 
 
-    public function destroy(Controllers $controllers)
-    {
-        //
-    }
+	//关注 取消关注
+	//这里user 被关注者
+	public function attention(User $user){
+		//dd($user);
+		//auth()->user()->following()->toggle($user);
+		//自己不能关注自己
+		$this->authorize('isNotMine',$user);
+		$user->fans()->toggle(auth()->user());
+		return back();
+	}
+     //我的粉丝
+	public  function myFans(User $user){
+
+    	$fans=$user->fans()->paginate(9);
+    	//dd ($fans);
+
+    	return view ('member.user.edit_fans',compact ('user','fans'));
+	}
+      //我的关注
+	public function myFollowing(User $user){
+     //获取
+		$followings = $user->following()->paginate(9);
+
+		return view('member.user.edit_following',compact('user','followings'));
+
+	}
+	
 }
