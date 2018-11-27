@@ -31,7 +31,9 @@
 
                                 <!-- Time -->
                                 <time class="comment-time">
-                                    玫瑰| @{{ v.created_at }}
+                                    <a href="" @click.prevent="zan(v)" class="text-muted">👍 @{{v.zan_num}}</a>
+                                    |
+                                    @{{ v.created_at }}
                                 </time>
                             </div>
                         </div> <!-- / .row -->
@@ -86,6 +88,13 @@
                     //全部的评论  comments:[]
                     data:{comment: {content: ''},
                         comments: []},
+                    updated(){
+                        $(document).ready(function () {
+                            $('pre code').each(function (i, block) {
+                                hljs.highlightBlock(block);
+                            });
+                        });
+                    },
 
                     methods:{
                         @auth
@@ -116,11 +125,7 @@
                                 let md=new  MarkdownIt();
                                 // render()渲染
                                 response.data.comment.content = md.render(response.data.comment.content)
-                                $(document).ready(function () {
-                                    $('pre code').each(function (i, block) {
-                                        hljs.highlightBlock(block);
-                                    });
-                                });
+
                                 // /清空 vue 数据
                                 this.comment.content = '';
                                 //清空编辑器内容
@@ -130,6 +135,18 @@
                                 editormd.replaceSelection("");
                             });
                         },
+                        zan(v){
+                          let url='/home/zan/make?type=comment&id='+v.id;
+                            axios.get(url).then((response)=>{
+                          // console.log(response.data.num)
+                              v.zan_num = response.data.zan_num;
+                              // console.log(v);
+
+                          })
+
+                        }
+
+
                         @endauth
                     },
 
@@ -172,12 +189,9 @@
                                 // 循环所有的评论数据
                                 // render 渲染
                                 this.comments.forEach((v, k) => {
-                                    v.content = md.render(v.content)});
-                                $(document).ready(function () {
-                                    $('pre code').each(function (i, block) {
-                                        hljs.highlightBlock(block);
-                                    });
+                                    v.content = md.render(v.content)
                                 });
+
                             });
                     },
                 });

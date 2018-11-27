@@ -24,8 +24,18 @@ Route::group(['prefix'=>'member','namespace'=>'Member','as'=>'member.'],function
 	Route::resource('user','UserController');
 	//定义关注/取消关注
 	Route::get('attention/{user}','UserController@attention')->name('attention');
+	//关注
 	Route::get('myFans/{user}','UserController@myFans')->name('myfans');
+	//粉丝
 	Route::get('myFollowing/{user}','UserController@myFollowing')->name('myfollowing');
+	//收藏
+	Route::get('myCollect/{user}','UserController@myCollect')->name('mycollect');
+	//点赞
+	Route::get('myZan/{user}','UserController@myZan')->name('myzan');
+     //消息
+	Route::get('mynofity/{user}','')->name('mynotify');
+
+
 
 
 });
@@ -40,6 +50,10 @@ Route::group(['prefix'=>'home','namespace'=>'Home','as'=>'home.'],function(){
 	//评论路由
 	Route::resource('comment','CommentController');
 	Route::get ('zan/make','ZanController@make')->name ('zan.make');
+	//收藏
+	Route::get('collect/make','CollectController@make')->name('collect.make');
+
+
 });
 
 

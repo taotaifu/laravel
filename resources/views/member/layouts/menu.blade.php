@@ -1,4 +1,4 @@
-<div class="col-sm-3">
+<div class="col-sm-3" id="box">
     <div class="card">
         <div class="card-block text-center pt-5">
             <div class="avatar avatar-xxl">
@@ -30,6 +30,11 @@
                         修改昵称
                     </a>
                 </div>
+                <div class="nav flex-column nav-pills ">
+                    <a href="{{route ('member.mynotify',$user)}}" class="nav-link text-muted {{active_class(if_route(['member.nitify']), 'active', '')}}">
+                        我的消息
+                    </a>
+                </div>
                 @endcan
         </div>
     </div>
@@ -51,11 +56,18 @@
                         他的关注
                     @endcan
                 </a>
-                <a href="" class="nav-link text-muted ">
+                <a href="{{route ('member.mycollect',[$user,'type'=>'article'])}}" class="nav-link text-muted {{active_class(if_route(['member.mycollect']), 'active', '')}}">
                     @can('isMine',$user)
-                     我的消息
+                     我的收藏
                     @else
-                     他的消息
+                     他的收藏
+                    @endcan
+                </a>
+                <a href="{{route ('member.myzan',[$user,'type'=>'article'])}}" class="nav-link text-muted {{active_class(if_route(['member.myzan']), 'active', '')}}">
+                    @can('isMine',$user)
+                        我的点赞
+                    @else
+                        他的点赞
                     @endcan
                 </a>
             </div>
@@ -64,7 +76,7 @@
 </div>
 @push('css')
     <style>
-        .active{
+        #box .active{
             color: white!important;
         }
     </style>

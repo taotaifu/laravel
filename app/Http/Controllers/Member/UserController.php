@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Member;
 
 use App\Models\Article;
+use App\Models\Collect;
+use App\Models\Zan;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -96,13 +98,44 @@ class UserController extends Controller
 
     	return view ('member.user.edit_fans',compact ('user','fans'));
 	}
-      //我的关注
+     //我的关注
 	public function myFollowing(User $user){
-     //获取
+		//获取
 		$followings = $user->following()->paginate(9);
 
 		return view('member.user.edit_following',compact('user','followings'));
 
 	}
-	
+
+	//我的收藏
+	public function myCollect(User $user,Request $request,Collect $collect){
+
+    	$type=$request->query('type');
+		//获取
+
+		$collectsData = $user->collect()->where ('collect_type','App\Models\\'.ucfirst ($type))->paginate(4);
+
+		return view('member.user.edit_collect',compact('user','collects','collectsData'));
+
+	}
+
+	//我的点赞
+	public function myZan(User $user,Request $request,Zan $zan){
+
+    	$type=$request->query('type');
+		//获取
+
+		$zansData = $user->zan()->where ('zan_type','App\Models\\'.ucfirst ($type))->paginate(3);
+
+        //dd ($zansData);
+		return view('member.user.edit_zan_' . $type ,compact('user','zans','zansData'));
+
+	}
+
+	  public function myNotify(){
+
+    	return view ('member.notify.index');
+
+	  }
+
 }

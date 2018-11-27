@@ -12,6 +12,13 @@ class CommentController extends Controller
     public function index(Request $request,Comment $comment){
 
 		$comments = $comment->with('user')->where('article_id',$request->article_id)->get();
+
+		foreach ($comments as $comment){
+
+            $comment->zan_num=$comment->zan->count();
+
+		}
+
       return ['code'=>1,'message'=>'','comments'=>$comments];
 
 	}
@@ -27,6 +34,7 @@ class CommentController extends Controller
 		//dd ($comment);
 		//关联user表 把字段数据写入数据库
 		$comment = $comment->with('user')->find($comment->id);
+		$comment->zan_num =$comment->zan->count();
 		//dd ($comment->with('user'));
 		//dd ($comment->user);
 		return ['code'=>1,'message'=>'','comment'=>$comment];

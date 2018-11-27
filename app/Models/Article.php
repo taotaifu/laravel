@@ -25,4 +25,12 @@ class Article extends Model
 		// 第二个参数 类型的前缀 zan_id zan_type
 		return $this->morphMany (Zan::class,'zan');
 	}
+
+	//collect 的多态联系
+
+	public function collect(){
+		//第一个参数关联模型
+		// 第二个参数 类型的前缀
+		return $this->morphMany (Collect::class,'collect');
+	}
 }

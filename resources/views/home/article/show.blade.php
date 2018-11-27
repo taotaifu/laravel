@@ -6,8 +6,19 @@
                 <div class="card card-body p-5">
                     <div class="row">
                         <div class="col text-right">
-                            <a href="http://www.houdunren.com/common/favorite?model=EduTopic&amp;id=60" class="btn btn-xs">
-                                <i class="fa fa-heart-o" aria-hidden="true"></i> 收藏</a>
+                            {{--(判断 登录之后才能看到收藏 )--}}
+                            @auth
+                                @if($article->collect->where('user_id',auth()->id())->first())
+                            <a href="{{route('home.collect.make',['type'=>'article','id'=>$article['id']])}}" class="btn btn-ms  " style="display:block; float: right ">
+                                 <i class="fa fa-heart-o"></i> 取消收藏</a>
+                                    @else
+                                    <a href="{{route('home.collect.make',['type'=>'article','id'=>$article['id']])}}" class="btn btn-ms btn-danger" style="display:block; float: right ">
+                                        <i class="fa fa-heart-o"></i> 收藏</a>
+                                    @endif
+                                @else
+                                <a href="{{route ('login',['from'=>url ()->full()])}}" class="btn btn-ms " style="display:block; float: right ">
+                                    <i class="fa fa-heart-o"></i> 收藏</a>
+                             @endauth
                         </div>
                     </div>
                     <div class="row">
@@ -18,7 +29,8 @@
                             <p class="text-muted mb-1 text-muted small">
                                 <a href="{{route('member.user.show',$article->user)}}" class="text-secondary">
                                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                </a><a href="{{route('member.user.show',$article->user)}}" class="text-secondary">{{$article->user->name}}</a>
+                                </a>
+                                <a href="{{route('member.user.show',$article->user)}}" class="text-secondary">{{$article->user->name}}</a>
                                 <i class="fa fa-clock-o ml-2" aria-hidden="true"></i>
                                 {{$article->created_at->diffForHumans()}}
 
@@ -36,35 +48,34 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
-
-                            <div class="text-center">
+                        <div class="text-center">
                                 {{--(判断 登录之后才能看到点赞 )--}}
                         @auth
                                     @if($article->zan->where('user_id',auth()->id())->first())
 
-                                <a class="btn btn-white" href="{{route ('home.zan.make',['type'=>'article','id'=>$article['id']])}}">取消点赞</a>
+                                <a class="btn btn-white " style="display:block; float: right " href="{{route ('home.zan.make',['type'=>'article','id'=>$article['id']])}}">取消点赞</a>
 
                         @else
-                                <a class="btn btn-white" href="{{route ('home.zan.make',['type'=>'article','id'=>$article['id']])}}">❤点赞</a>
+                                <a class="btn  btn-danger " style="display:block; float: right " href="{{route ('home.zan.make',['type'=>'article','id'=>$article['id']])}}">❤点赞</a>
                         @endif
 
-                    @else
+                        @else
 
-                        <a class="btn btn-white" href="{{route ('login',['from'=>url ()->full()])}}">❤点赞</a>
+                        <a class="btn btn-white" style="display:block; float: right " href="{{route ('login',['from'=>url ()->full()])}}">❤点赞</a>
+                         @endauth
 
-                    @endauth
                     <div class="row">
                         <div class="col-12 mr--3">
                             <div class="avatar-group d-none d-sm-flex">
                                 @foreach($article->zan as $zan )
-                                    <a href="{{route ('member.user.show'),$zan->user}}" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
-                                        <img src="$zan->user->icon" alt="..." class="avatar-img rounded-circle border border-white">
+                                    <a href="{{route('member.user.show',$zan->user)}}" class="avatar avatar-xs" data-toggle="tooltip" title="" data-original-title="Ab Hadley">
+                                        <img src="{{$zan->user->icon}}" alt="..." class="avatar-img rounded-circle border border-white">
                                     </a>
                                 @endforeach
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
                 @include('home.layouts.comment')
             </div>

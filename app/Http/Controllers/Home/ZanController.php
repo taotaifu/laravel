@@ -25,18 +25,29 @@ class ZanController extends Controller
 		//dd ($request->all ());
 		$class='App\Models\\'.ucfirst ($type);
 		//dd ($class);
-		$models=$class::find($id);
+		$models = $class::find($id);
 		//dd ($models);
 		//$models 通过id找到当前文章或者评论的类型
-         // dd ($zan=$models->zan->where('user_id',auth ()->id ())->first());
+          //dd ($zan=$models->zan->where('user_id',auth ()->id ())->first());
 		if ($zan=$models->zan->where('user_id',auth ()->id ())->first()){
-
+               //点赞 执行删除
 			   $zan->delete();
 
 		}else{
-
-			$models->zan->create(['user_id'=>auth ()->id ()]);
+               //点赞 执行添加
+			$models->zan()->create(['user_id'=>auth()->id()]);
 		}
+
+         //判断是否为异步
+		if ($request->ajax ()){
+
+           $models=$class::find($id);
+
+           return ['code'=>1,'message'=>'','zan_num'=>$models->zan->count()];
+
+		}
+
+		return back ();
 
 
 	}
