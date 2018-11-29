@@ -32,9 +32,10 @@ Route::group(['prefix'=>'member','namespace'=>'Member','as'=>'member.'],function
 	Route::get('myCollect/{user}','UserController@myCollect')->name('mycollect');
 	//点赞
 	Route::get('myZan/{user}','UserController@myZan')->name('myzan');
-     //消息
-	Route::get('mynofity/{user}','')->name('mynotify');
-
+	//我的所有通知
+	Route::get('notify/{user}','NotifyController@index')->name('notify');
+	//标记已读
+	Route::get('notify/show/{notify}','NotifyController@show')->name('notify.show');
 
 
 
@@ -52,7 +53,8 @@ Route::group(['prefix'=>'home','namespace'=>'Home','as'=>'home.'],function(){
 	Route::get ('zan/make','ZanController@make')->name ('zan.make');
 	//收藏
 	Route::get('collect/make','CollectController@make')->name('collect.make');
-
+	//搜索
+	Route::get('search','HomeController@search')->name('search');
 
 });
 

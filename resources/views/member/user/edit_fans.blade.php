@@ -28,7 +28,7 @@
                      这个家伙很懒 什么都没有留下~~~
                   </p>
                   <hr>
-                      @if($fans->count() != 0)
+              @if($fans->count() != 0)
                <div class="row">
                   @foreach($fans as $fan)
                    <div class="col-4">

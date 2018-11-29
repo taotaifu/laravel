@@ -31,7 +31,7 @@
                     </a>
                 </div>
                 <div class="nav flex-column nav-pills ">
-                    <a href="{{route ('member.mynotify',$user)}}" class="nav-link text-muted {{active_class(if_route(['member.nitify']), 'active', '')}}">
+                    <a href="{{route ('member.notify',$user)}}"  class="nav-link text-muted {{active_class(if_route(['member.notify']) , 'active', '')}}">
                         我的消息
                     </a>
                 </div>

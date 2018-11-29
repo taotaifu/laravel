@@ -3,7 +3,7 @@
 
         <!-- Comments -->
 
-        <div class="comment mb-3" v-for="v in comments">
+        <div class="comment mb-3" v-for="v in comments" :id="'comment'+ v.id">
             <div class="row">
                 <div class="col-auto">
 
@@ -16,7 +16,7 @@
                 <div class="col ml--2">
 
                     <!-- Body -->
-                    <div class="comment-body">
+                    <div class="comment-body" >
 
                         <div class="row">
                             <div class="col">
@@ -39,7 +39,7 @@
                         </div> <!-- / .row -->
 
                         <!-- Text -->
-                        <p class="comment-text" v-html="v.content">
+                        <p class="comment-text" v-html="v.content"  style="width: 200px">
                         </p>
 
                     </div>
@@ -94,6 +94,8 @@
                                 hljs.highlightBlock(block);
                             });
                         });
+                        // 查看所有的消息时滚动到当前最新一条评论的信息的跟前
+                        hdjs.scrollTo('body',location.hash,300, {queue:true});
                     },
 
                     methods:{

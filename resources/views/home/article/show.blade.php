@@ -1,4 +1,12 @@
 @extends('home.layouts.master')
+@push('css')
+    <style>
+        .comment-text img{
+            width: 400px;
+            height: 300px;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="container">
         <div class="row edu-topic-show mt-3">
@@ -89,7 +97,7 @@
                         </div>
                     </div>
                     <div class="card-block text-center p-5">
-                        <div class="avatar avatar-xl">
+                        <div class="avatar avatar-xl" >
                             <a href="{{route('member.user.show',$article->user)}}">
                                 <img src="{{$article->user->icon}}" alt="..." class="avatar-img rounded-circle">
                             </a>

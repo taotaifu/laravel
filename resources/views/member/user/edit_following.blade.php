@@ -89,7 +89,7 @@
                 </div>
                 {{$followings->links()}}
                 @else
-                暂无粉丝
+                暂无关注
                 @endif
             </div>
         </div>
