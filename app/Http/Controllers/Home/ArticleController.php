@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,27 +13,48 @@ class ArticleController extends Controller
 {
 	public function __construct(){
 		$this->middleware('auth',[
-			'only'=>['create','store','edit','update','destroy'],
+			//'only'=>['create','store','edit','update','destroy'],
+			'except'=>['index','show']
 		]);
 	}
 
 	public function index(Request $request)
 	{
-		$category=$request->query('category');
-        $articles=Article::latest();
-        //判断
+		//测试模型关联
+		//$article = Article::find(10);
+		//dd($article->toArray());
+		//dd($article);
+		//dd($article->user);
+		//dd($article->user->name);
+		//die;
+		//找到跟当前文章分类相同所有文章
+		//dd($article->category->article->toArray());
+
+		//测试策略
+		//$data = Article::find(10);
+
+		//接受category参数
+		$category = $request->query('category');
+		$articles = Article::latest();
+
 		if($category){
-			$articles=$articles->where('category_id',$category);
+
+			$articles = $articles->where('category_id',$category);
 		}
-		//分页
-		$articles=$articles->paginate(10);
-        $categories=Category::all ();
-        //dd ($categories);
+		$articles = $articles->paginate(10);
+		//$articles = Article::latest()->get();
+		//dd($articles->toArray());
+		//获取所有栏目
+		//$categories = Category::limit(3)->get();
+		$categories = Category::all();
+		//dd($categories);
 		return view('home.article.index',compact('articles','categories'));
 	}
 
+
 	public function create()
 	{
+		//获取所有栏目数据
 		$categories = Category::all();
 		//dd($categories->toArray());
 		return view('home.article.create',compact('categories'));
@@ -55,17 +77,30 @@ class ArticleController extends Controller
 
 	public function show(Article $article)
 	{
+		//读取当前文章所有点赞用户
+		//dd($article->zan);
+		//foreach($article->zan as $zan){
+		//	dump($zan->user->icon);
+		//}
+
+		//dd($article->with('user')->where('id',$article->id)->first()->toArray());
+		//协助测试获取粉丝/关注的人
+		//$user = User::find(22);
+		//dd($user->fans);
+		$user = User::find(1);
+		//dd($user->following->toArray());
 		return view('home.article.show',compact('article'));
 	}
 
 
 	public function edit(Article $article)
 	{
+		//('策略方法'，对应的模型)
 		$this->authorize('update',$article);
 		//dump($article->toArray());
 		//获取所有栏目数据
 		$categories = Category::all();
-		//提示
+		//dd($categories->toArray());
 		return view('home.article.edit',compact('categories','article'));
 	}
 
@@ -76,9 +111,9 @@ class ArticleController extends Controller
 		$article->title = $request->title;
 		$article->category_id = $request->category_id;
 		$article->content = $request['content'];
+		//$article->user_id = auth()->id();
 		//dd($article);
 		$article->save();
-		//提示
 		return redirect()->route('home.article.index')->with('success','文章编辑成功');
 	}
 

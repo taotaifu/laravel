@@ -41,21 +41,17 @@ Route::group(['prefix'=>'member','namespace'=>'Member','as'=>'member.'],function
 
 });
 
-
-
-//前台路由组
+//前台
 Route::group(['prefix'=>'home','namespace'=>'Home','as'=>'home.'],function(){
 	Route::get('/','HomeController@index')->name('index');
 	//文章管理
 	Route::resource('article','ArticleController');
-	//评论路由
+	//评论
 	Route::resource('comment','CommentController');
-	Route::get ('zan/make','ZanController@make')->name ('zan.make');
-	//收藏
-	Route::get('collect/make','CollectController@make')->name('collect.make');
+	//点赞  取消赞
+	Route::get('zan/make','ZanController@make')->name('zan.make');
 	//搜索
 	Route::get('search','HomeController@search')->name('search');
-
 });
 
 
@@ -89,9 +85,27 @@ Route::group(['prefix'=>'util','namespace'=>'Util','as'=>'util.'],function(){
 //后台群组路由
 Route::group(['middleware' => ['admin.auth'],'prefix'=>'admin','namespace'=>'Admin','as'=>'admin.'],function(){
 	Route::get('index','IndexController@index')->name('index');
+	Route::get('management','IndexController@management')->name('management');
 	Route::resource ('category','CategoryController');
+	Route::get ('config/edit/{name}','ConfigController@edit')->name ('config.edit');
+    Route::post ('config/update/{name}','ConfigController@update')->name ('config.update');
 
 });
 
+//微信管理
+Route::group(['prefix'=>'wechat','namespace'=>'Wechat','as'=>'wechat.'],function(){
+	//菜单管理
+	Route::resource('button','ButtonController');
+	Route::get('button/push/{button}','ButtonController@push')->name('button.push');
+	//微信通信地址
+	Route::get('api/handler','ApiController@handler')->name('api.handler');
+});
+
+//轮播图管理
+Route::group(['prefix'=>'shower','namespace'=>'Shower','as'=>'shower.'],function(){
+	//轮播图管理
+	Route::resource('figure','FigureController');
+
+});
 
 

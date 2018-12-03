@@ -5,6 +5,7 @@
            html, body {
                position: relative;
                height: 100%;
+
            }
            body {
                background: #eee;
@@ -44,7 +45,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-xl-8">
-
                 <!-- Card -->
                 <div class="card">
                     <div class="card-body">
@@ -73,27 +73,6 @@
                                     </p>
 
                                 </div>
-                                <div class="col-auto">
-
-                                    <!-- Dropdown -->
-                                    <div class="dropdown">
-                                        <a href="#!" class="dropdown-ellipses dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fe fe-more-vertical"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="#!" class="dropdown-item">
-                                                Action
-                                            </a>
-                                            <a href="#!" class="dropdown-item">
-                                                Another action
-                                            </a>
-                                            <a href="#!" class="dropdown-item">
-                                                Something else here
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                </div>
                             </div> <!-- / .row -->
                         </div>
 
@@ -108,16 +87,9 @@
 
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide"><img src="{{asset ('org/images/1.jpeg')}}"></div>
-                                <div class="swiper-slide"><img src="{{asset ('org/images/2.jpg')}}"></div>
-                                <div class="swiper-slide"><img src="{{asset ('org/images/3.jpg')}}"></div>
-                                <div class="swiper-slide"><img src="{{asset ('org/images/4.jpg')}}"></div>
-                                <div class="swiper-slide"><img src="{{asset ('org/images/5.jpg')}}"></div>
-                                <div class="swiper-slide"><img src="{{asset ('org/images/6.jpg')}}"></div>
-                                <div class="swiper-slide"><img src="{{asset ('org/images/7.jpg')}}"></div>
-                                <div class="swiper-slide"><img src="{{asset ('org/images/8.jpg')}}"></div>
-                                <div class="swiper-slide"><img src="{{asset ('org/images/9.jpg')}}"></div>
-                                <div class="swiper-slide"><img src="{{asset ('org/images/10.jpg')}}"></div>
+                                @foreach($figures as $figure)
+                                <div class="swiper-slide"><img src="{{$figure->icon}}"></div>
+                                    @endforeach
                             </div>
                             <!-- Add Pagination -->
                             <div class="swiper-pagination"></div>
@@ -226,7 +198,7 @@
 
                                 <!-- Avatar -->
                                 <div class="avatar">
-                                    <img src="{{auth ()->user ()->icon}}" alt="..." class="avatar-img rounded-circle">
+                                    <img src="{{asset ('org/images/13.jpg')}}" alt="..." class="avatar-img rounded-circle">
                                 </div>
 
                             </div>
@@ -494,26 +466,24 @@
             </div>
         </div> <!-- / .row -->
     </div>
-
-
-    @push('js')
-        <script>
-            var swiper = new Swiper('.swiper-container', {
-                slidesPerView: 1,
-                spaceBetween: 30,
-                keyboard: {
-                    enabled: true,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-            });
-        </script>
-    @endpush
-
 @endsection
+
+@push('js')
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            keyboard: {
+                enabled: true,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+@endpush

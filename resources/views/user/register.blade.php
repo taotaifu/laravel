@@ -16,7 +16,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/css/theme.min.css">
     {{--生成秘钥令牌--}}
-    <meta name="csrf-token" content="{{ csrf_token()}}">
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <title>注册</title>
 </head>
 <body class="d-flex align-items-center bg-white border-top-2 border-primary">
@@ -54,7 +54,7 @@
                         邮件
                     </label>
                     <!-- Input -->
-                    <input type="email" value="729589198@qq.com" name="email" class="form-control" placeholder="请输入邮箱">
+                    <input type="email" value="" name="email" class="form-control" placeholder="请输入邮箱">
                 </div>
                 <div class="form-group">
                     <!-- Label -->
@@ -120,7 +120,7 @@
             // 后台链接
             url:'{{route ('util.code.send')}}',
             // 验证码等待的时间10秒
-            timeout:10,
+            timeout:'{{$config['data']['code_expires']??60}}',
             // 表单
             input:'[name="email"]'
         };

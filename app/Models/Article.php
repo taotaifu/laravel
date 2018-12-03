@@ -10,9 +10,7 @@ use Laravel\Scout\Searchable;
 
 class Article extends Model
 {
-	use LogsActivity;
-	use Searchable;
-
+	use LogsActivity,Searchable;
 	protected $fillable = ['title','content','id'];
 	//如果需要记录所有$fillable设置的填充属性，可以使用
 	protected static $logFillable = true;

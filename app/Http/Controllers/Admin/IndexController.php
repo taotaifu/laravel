@@ -12,4 +12,8 @@ class IndexController extends Controller
 
 	   return view('admin.index.index');
    }
+	public function management(){
+
+		return view('admin.index.management');
+	}
 }

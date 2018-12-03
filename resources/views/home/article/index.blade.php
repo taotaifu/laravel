@@ -1,9 +1,12 @@
 @extends('home.layouts.master')
 @section('content')
+    {{--@can('update',$data)--}}
+    {{--@endcan--}}
     <div class="container mt-5">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+
                     <!-- Files -->
                     <div class="card" data-toggle="lists" data-lists-values="[&quot;name&quot;]">
                         <div class="card-header">
@@ -23,15 +26,15 @@
 
                                         <!-- Toggle -->
                                         <a href="#!" class="small text-muted dropdown-toggle" data-toggle="dropdown">
-                                            栏目排序
+                                            筛选
                                         </a>
 
                                         <!-- Menu -->
                                         <div class="dropdown-menu">
                                             @foreach($categories as $category)
-                                            <a class="dropdown-item sort" href="{{route ('home.article.index',['category'=>$category['id']])}}">
-                                                {{$category['title']}}
-                                            </a>
+                                                <a class="dropdown-item sort" data-sort="name" href="{{route('home.article.index',['category'=>$category['id']])}}">
+                                                    {{$category['title']}}
+                                                </a>
                                             @endforeach
                                         </div>
 
@@ -39,16 +42,12 @@
 
                                 </div>
                                 <div class="col-auto">
-                                    @auth()
+
                                     <!-- Button -->
                                     <a href="{{route('home.article.create')}}" class="btn btn-sm btn-primary">
                                         发表文章
                                     </a>
-                                        @else
-                                     <a href="{{route('login',['from'=>url()->full()])}}" class="btn btn-sm btn-primary">
-                                          发表文章
-                                     </a>
-                                     @endauth
+
                                 </div>
                             </div> <!-- / .row -->
                         </div>
@@ -76,7 +75,7 @@
                                                 </h4>
 
                                                 <p class="card-text small mb-1">
-                                                    <a href="" class="text-secondary mr-2">
+                                                    <a href="{{route('member.user.show',$article->user)}}" class="text-secondary mr-2">
                                                         <i class="fa fa-user-circle" aria-hidden="true"></i> {{$article->user->name}}
                                                     </a>
                                                     {{--Carbon 处理时间库--}}
@@ -115,7 +114,7 @@
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div> <!-- / .row -->
 
                                     </li>
                                 @endforeach
@@ -123,19 +122,34 @@
 
                         </div>
                     </div>
-                    {{$articles->appends(['category'=>Request::query ('category')])->links()}}
+                    {{--自定义分页url--}}
+                    {{--手册位置：分页-->附加参数到分页链接--}}
+                    {{--appends(['参数名' => '参数值'])--}}
+                    {{$articles->appends(['category' => Request::query('category')])->links()}}
                 </div>
-            </div>
+            </div> <!-- / .row -->
         </div>
     </div>
 @endsection
 @push('js')
     <script>
         function del(obj) {
-            require(['hdjs', 'bootstrap'], function (hdjs) {
-                hdjs.confirm('确定删除吗?', function () {
-                    $(obj).next('form').submit();
-                })
+            require(['https://cdn.bootcss.com/sweetalert/2.1.2/sweetalert.min.js'], function (swal) {
+                swal("确定删除?", {
+                    icon: 'warning',
+                    buttons: {
+                        cancel: "取消",
+                        defeat: '确定',
+                    },
+                }).then((value) => {
+                    switch (value) {
+                        case "defeat":
+                            $(obj).next('form').submit();
+                            break;
+                        default:
+
+                    }
+                });
             })
         }
     </script>

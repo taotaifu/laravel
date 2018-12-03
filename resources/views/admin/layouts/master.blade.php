@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-
     <!-- Libs CSS -->
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/fonts/feather/feather.min.css">
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/libs/highlight/styles/vs2015.min.css">
@@ -13,9 +12,10 @@
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/libs/flatpickr/dist/flatpickr.min.css">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Theme CSS -->
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="{{asset('org/Dashkit-1.1.2/assets')}}/css/theme.min.css">
-
     <title>后台管理</title>
+    <script src="{{asset ('org/swiper-4.4.2')}}/dist/js/swiper.min.js"></script>
 </head>
 <body>
 
@@ -108,20 +108,65 @@
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#sidebarLayouts" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
-                        <i class="fe fe-layout"></i> Layouts
+                        <i class="fe fe-layout"></i>网址配置
                     </a>
                     <div class="collapse show" id="sidebarLayouts">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="index.html" class="nav-link">
-                                    Sidenav
+                                <a href="{{route('admin.config.edit',['name'=>'base'])}}" class="nav-link">
+                                    基本配置
+                                </a>
+                                <a href="{{route('admin.config.edit',['name'=>'upload'])}}" class="nav-link">
+                                    上传配置
+                                </a>
+                                <a href="{{route('admin.config.edit',['name'=>'mail'])}}" class="nav-link">
+                                    邮件配置
+                                </a>
+                                <a href="{{route('admin.config.edit',['name'=>'code'])}}" class="nav-link">
+                                    验证码配置
+                                </a>
+                                <a href="{{route('admin.config.edit',['name'=>'search'])}}" class="nav-link">
+                                    搜索配置
+                                </a>
+                                <a href="{{route('admin.config.edit',['name'=>'wechat'])}}" class="nav-link">
+                                    微信配置
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#sidebarLayouts" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                        <i class="fa fa-wechat"></i>微信管理
+                    </a>
+                    <div class="collapse show" id="sidebarLayouts">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route ('wechat.button.index')}}" class="nav-link">
+                                    微信菜单
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#sidebarLayouts" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarLayouts">
+                        <i class="fa fa-shower"></i>轮播图管理
+                    </a>
+                    <div class="collapse show" id="sidebarLayouts">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route ('shower.figure.index')}}" class="nav-link">
+                                    轮播图配置
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
                 <li class="nav-item d-md-none">
                     <a class="nav-link" href="#sidebarModalActivity" data-toggle="modal">
                         <span class="fe fe-bell"></span> Notifications
@@ -296,6 +341,7 @@
                     </a>
                     <!-- Menu -->
                     <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
+                        <a href="{{route('home.index')}}" class="dropdown-item ml-2">返回首页</a>
                         <a href="{{route('logout')}}" class="dropdown-item ml-2">注销登录</a>
                     </div>
                 </div>
@@ -307,14 +353,20 @@
 
 
 
+
 <div class="main-content">
+
     @yield('content')
+
 </div>
+
 @include('layouts.hdjs')
 @include('layouts.message')
 <script>
     require(['bootstrap'])
+    require(['swiper'])
 </script>
 @stack('js')
+@stack('css')
 </body>
 </html>
