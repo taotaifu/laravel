@@ -10,6 +10,12 @@ use App\Http\Controllers\Controller;
 
 class ButtonController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('admin.auth',[
+			'except'=>[],
+		]);
+	}
 
 	public function index()
 	{
@@ -57,6 +63,7 @@ class ButtonController extends Controller
 	public function push(Button $button,WechatService $wechatService){
 		//将原来数据库 json 格式数据转为数组
 		$menu = json_decode($button['data'],true);
+		//dd($menu);
 		//wechat 类要求传递惨淡数据需要时数组
 		$res = WeChat::instance('button')->create($menu);
 		//dd($res);

@@ -98,7 +98,13 @@ Route::group(['prefix'=>'wechat','namespace'=>'Wechat','as'=>'wechat.'],function
 	Route::resource('button','ButtonController');
 	Route::get('button/push/{button}','ButtonController@push')->name('button.push');
 	//微信通信地址
-	Route::get('api/handler','ApiController@handler')->name('api.handler');
+	Route::any('api/handler','ApiController@handler')->name('api.handler');
+	//文本回复
+	Route::resource ('response_text','ResponseTextController');
+	//基本回复
+	Route::resource ('response_base','ResponseBaseController');
+	//图文回复
+	Route::resource ('response_news','ResponseNewsController');
 });
 
 //轮播图管理

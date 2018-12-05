@@ -150,6 +150,27 @@
                                 </a>
                             </li>
                         </ul>
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route ('wechat.response_text.index')}}" class="nav-link">
+                                    文本回复
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route ('wechat.response_base.create')}}" class="nav-link">
+                                    基本回复
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route ('wechat.response_news.index')}}" class="nav-link">
+                                    图文回复
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
