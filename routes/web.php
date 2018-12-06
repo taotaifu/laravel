@@ -115,3 +115,15 @@ Route::group(['prefix'=>'shower','namespace'=>'Shower','as'=>'shower.'],function
 });
 
 
+//后台权限
+
+
+Route::group(['prefix'=>'role','namespace'=>'Role','as'=>'role.'],function(){
+	//轮播图管理
+	Route::resource('role','RoleController');
+    //角色管理资源路由
+	Route::get ('permission/index','PermissionController@index')->name ('permission.index');
+	//清除权限缓存
+	Route::get('permission/forget_permission_cache','PermissionController@forgetPermissionCache')->name('permission.forget_permission_cache');
+
+});

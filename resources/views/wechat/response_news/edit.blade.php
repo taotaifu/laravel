@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <form action="{{route ('wechat.response_news.update')}}" method="post">
+        <form action="{{route ('wechat.response_news.update',$responseNews)}}" method="post">
             {!! $ruleView !!}
             @csrf
 

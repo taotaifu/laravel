@@ -13,7 +13,7 @@ class FigureController extends Controller
 	$this->middleware('auth',[
 		'only'=>['create','store','edit','update','destroy'],
 	]);
-}
+   }
 
 	public function index(Request $request)
 

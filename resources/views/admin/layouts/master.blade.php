@@ -95,13 +95,19 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#sidebarAuth" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="fe fe-user"></i> Authentication
+                        <i class="fe fe-user"></i> 权限管理
                     </a>
                     <div class="collapse show" id="sidebarAuth">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="#sidebarSignIn" class="nav-link" >
-                                    Sign in
+                                    用户管理
+                                </a>
+                                <a href="{{route ('role.role.index')}}" class="nav-link" >
+                                    角色管理
+                                </a>
+                                <a href="{{route ('role.permission.index')}}" class="nav-link" >
+                                    权限列表
                                 </a>
 
                             </li>
